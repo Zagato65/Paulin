@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vida+ Saúde - Plataforma de Microsserviços</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-heartbeat"></i> Vida+ Saúde</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-service="dashboard">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-service="patient">
+                        <i class="fas fa-user-injured"></i> Pacientes
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-service="appointment">
+                        <i class="fas fa-calendar-check"></i> Consultas
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-service="medical-record">
+                        <i class="fas fa-file-medical"></i> Prontuários
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-service="billing">
+                        <i class="fas fa-file-invoice-dollar"></i> Faturamento
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1 id="page-title">Dashboard</h1>
+                <div class="user-info">
+                    <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="User">
+                    <span>Dra. Ana Silva</span>
+                </div>
+            </div>
+
+            <!-- Dashboard -->
+            <div class="services-container active" id="dashboard">
+                <h2 class="service-title">Bem-vindo ao Sistema Vida+ Saúde</h2>
+                <p class="service-description">
+                    Plataforma integrada de microsserviços para gestão de clínicas médicas. 
+                    Selecione um módulo no menu lateral para começar.
+                </p>
+
+                <div class="card-container">
+                    <div class="card patient">
+                        <div class="card-header">
+                            <h3 class="card-title">Pacientes</h3>
+                            <div class="card-icon">
+                                <i class="fas fa-user-injured"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p>Total de pacientes: <span id="patient-count">0</span></p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary" data-service="patient">Acessar</button>
+                        </div>
+                    </div>
+
+                    <div class="card appointment">
+                        <div class="card-header">
+                            <h3 class="card-title">Consultas</h3>
+                            <div class="card-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p>Consultas hoje: <span id="appointment-today">0</span></p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary" data-service="appointment">Acessar</button>
+                        </div>
+                    </div>
+
+                    <div class="card medical-record">
+                        <div class="card-header">
+                            <h3 class="card-title">Prontuários</h3>
+                            <div class="card-icon">
+                                <i class="fas fa-file-medical"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p>Prontuários cadastrados: <span id="record-count">0</span></p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary" data-service="medical-record">Acessar</button>
+                        </div>
+                    </div>
+
+                    <div class="card billing">
+                        <div class="card-header">
+                            <h3 class="card-title">Faturamento</h3>
+                            <div class="card-icon">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p>Faturamento mensal: R$ <span id="monthly-billing">0,00</span></p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary" data-service="billing">Acessar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Patient Service -->
+            <div class="services-container" id="patient">
+                <h2 class="service-title">Gestão de Pacientes</h2>
+                <p class="service-description">
+                    Cadastre novos pacientes, consulte informações existentes e gerencie dados demográficos.
+                </p>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Cadastrar Novo Paciente</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="patient-form">
+                            <div class="form-group">
+                                <label for="patient-name">Nome Completo</label>
+                                <input type="text" id="patient-name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="patient-cpf">CPF</label>
+                                <input type="text" id="patient-cpf" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="patient-birthdate">Data de Nascimento</label>
+                                <input type="date" id="patient-birthdate" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="patient-phone">Telefone</label>
+                                <input type="tel" id="patient-phone" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="patient-email">E-mail</label>
+                                <input type="email" id="patient-email" class="form-control">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Cadastrar Paciente</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <div class="card-header">
+                        <h3 class="card-title">Lista de Pacientes</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input type="text" id="patient-search" class="form-control" placeholder="Buscar paciente por nome ou CPF...">
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>CPF</th>
+                                    <th>Data Nasc.</th>
+                                    <th>Telefone</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="patient-list">
+                                <!-- Dados serão carregados via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appointment Service -->
+            <div class="services-container" id="appointment">
+                <h2 class="service-title">Gestão de Consultas</h2>
+                <p class="service-description">
+                    Agende novas consultas, visualize a agenda médica e gerencie horários disponíveis.
+                </p>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Agendar Consulta</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="appointment-form">
+                            <div class="form-group">
+                                <label for="appointment-patient">Paciente</label>
+                                <select id="appointment-patient" class="form-control" required>
+                                    <option value="">Selecione um paciente</option>
+                                    <!-- Opções serão carregadas via JavaScript -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointment-date">Data e Hora</label>
+                                <input type="datetime-local" id="appointment-date" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointment-reason">Motivo da Consulta</label>
+                                <input type="text" id="appointment-reason" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Agendar Consulta</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <div class="card-header">
+                        <h3 class="card-title">Agenda de Consultas</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input type="text" id="appointment-search" class="form-control" placeholder="Buscar consulta por paciente, data ou motivo...">
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Data/Hora</th>
+                                    <th>Paciente</th>
+                                    <th>Motivo</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appointment-list">
+                                <!-- Dados serão carregados via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medical Record Service -->
+            <div class="services-container" id="medical-record">
+                <h2 class="service-title">Gestão de Prontuários</h2>
+                <p class="service-description">
+                    Acesse e atualize registros médicos, exames, diagnósticos e prescrições de pacientes.
+                </p>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Buscar Prontuário</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="record-search-form">
+                            <div class="form-group">
+                                <label for="record-appointment">Consulta</label>
+                                <select id="record-appointment" class="form-control" required>
+                                    <option value="">Selecione uma consulta</option>
+                                    <!-- Opções serão carregadas via JavaScript -->
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Buscar Prontuário</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px; display: none;" id="record-details">
+                    <div class="card-header">
+                        <h3 class="card-title">Prontuário Médico</h3>
+                    </div>
+                    <div class="card-body">
+                        <input type="hidden" id="record-id">
+                        <div class="form-group">
+                            <label for="record-patient-info">Paciente</label>
+                            <input type="text" id="record-patient-info" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="record-date">Data da Consulta</label>
+                            <input type="text" id="record-date" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="record-reason">Motivo da Consulta</label>
+                            <input type="text" id="record-reason" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="record-description">Descrição</label>
+                            <textarea id="record-description" class="form-control" rows="5"></textarea>
+                        </div>
+                        <button type="button" id="save-record" class="btn btn-primary">Salvar Prontuário</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Billing Service -->
+            <div class="services-container" id="billing">
+                <h2 class="service-title">Gestão de Faturamento</h2>
+                <p class="service-description">
+                    Gere faturas, consulte pagamentos e acompanhe o fluxo financeiro da clínica.
+                </p>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Gerar Fatura</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="billing-form">
+                            <div class="form-group">
+                                <label for="billing-appointment">Consulta</label>
+                                <select id="billing-appointment" class="form-control" required>
+                                    <option value="">Selecione uma consulta</option>
+                                    <!-- Opções serão carregadas via JavaScript -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="billing-value">Valor (R$)</label>
+                                <input type="number" id="billing-value" class="form-control" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="billing-status">Status</label>
+                                <select id="billing-status" class="form-control" required>
+                                    <option value="PENDENTE">Pendente</option>
+                                    <option value="PAGO">Pago</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Gerar Fatura</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <div class="card-header">
+                        <h3 class="card-title">Histórico de Faturas</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input type="text" id="billing-search" class="form-control" placeholder="Buscar fatura por paciente, data ou valor...">
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Consulta</th>
+                                    <th>Paciente</th>
+                                    <th>Valor (R$)</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="billing-list">
+                                <!-- Dados serão carregados via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
